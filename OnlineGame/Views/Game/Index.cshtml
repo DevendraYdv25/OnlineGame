@@ -1,0 +1,74 @@
+﻿@model IEnumerable<OnlineGame.Models.OnlineGame1>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="background-color:aqua">Online Quize WebApp Test Your Ability with .NET CORE 3.1</h1>
+
+
+<table class="table">
+    
+    <tbody style="background-color:white">
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qid) ) @Html.DisplayFor(modelItem => item.Question) ?
+            </td>
+            <td>
+                <input type="radio" id="Option1" name="@Html.DisplayFor(modelItem => item.Qid)" class="rb" value="@Html.DisplayFor(modelItem => item.Option1)" />
+                @Html.DisplayFor(modelItem => item.Option1)
+                <input type="radio" id="Option2" name="@Html.DisplayFor(modelItem => item.Qid)" class="rb" value="@Html.DisplayFor(modelItem => item.Option2)" />
+                @Html.DisplayFor(modelItem => item.Option2)
+                <input type="radio" id="Option3" name="@Html.DisplayFor(modelItem => item.Qid)" class="rb" value="@Html.DisplayFor(modelItem => item.Option3)" />
+                @Html.DisplayFor(modelItem => item.Option3)
+                <input type="radio" id="Option4" name="@Html.DisplayFor(modelItem => item.Qid)" class="rb" value="@Html.DisplayFor(modelItem => item.Option4)" />
+                @Html.DisplayFor(modelItem => item.Option4)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @*To hide the correct answer*@
+                <label id="crt" name="@Html.DisplayFor(modelItem => item.Qid)" class="rb" style="display:none; color:forestgreen;">
+                    <b>@Html.DisplayFor(modelItem => item.Correct)</b>
+                </label>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<button type="button" id="btn" class="btn-success" onclick="displayresult();">Submit</button>
+<label id="Useranswer"></label>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    
+    $(document).ready(function ()
+    {
+        debugger
+        $("#btn").click(function ()
+        {
+            $(".rb").show();
+            $(".rb").attr("disabled", true);
+        });
+
+    });
+
+
+    function displayresult() {
+        debugger
+        documentElemetentById("Useranswer").innerHTML = "";
+        var results = document.getElementsByTagName('input');
+        for (i = 0; results.length; i++) {
+            if (results[i].type == "radio") {
+                if (results[i].checked) {
+                    document.getElementById("Useranswer").innerHTML += "Q" + results[i].name + ")" + "The selected anser is" + results[i].value + "</br>";
+                }
+            }
+        }
+    }
+</script>
